@@ -176,10 +176,10 @@ def coins():
     
     for i in range(len(coin_list)):
         if div_list[i] != 0:
-            if i == len(coin_list) - 1:
-                result_str += f"{coin_list[i]} * {div_list[i]}"
-            else:
-                result_str += f"{coin_list[i]} * {div_list[i]} + "
+            result_str += f"{coin_list[i]} * {div_list[i]} + "
+    
+    # 문자열 마지막 + 삭제
+    result_str = result_str[:-2]
     
     result_list.append(result_str)
 
