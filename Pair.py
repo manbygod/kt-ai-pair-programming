@@ -259,6 +259,7 @@ def jumin():
     
         return template
     
+# 1/4원 안에 점이 선택될 확률 이용      
 @app.route('/pi', methods=['get', 'post'])
 def pi():
     
@@ -280,7 +281,32 @@ def pi():
             distance = math.sqrt(x**2 + y**2)
             if distance <= 1: comp_cnt+=1
         
-        result =  "PI is {0}".format(4 * (comp_cnt / iter_num))
+        result =  "PI may be astimed as {0}".format(4 * (comp_cnt / iter_num))
+
+    return template.format(result=result)
+
+# 적분의 원리를 이용하여 pi 값 구하기 
+@app.route('/pi2', methods=['get', 'post'])
+def pi2():
+    
+    with open('./pi_check.html', 'r', encoding='utf8') as f:
+        template = f.read()
+    result = ""
+    
+    if request.method == 'POST':
+        num = request.form.get("pi_iteration")
+        iter_num = check_positive_number(num)
+    
+        if iter_num <= 0:
+            return "invalid parameter"
+        
+        x_width = 1 / iter_num
+        area = 0
+        for i in range(iter_num+1):
+            y_width = math.sqrt(1 - (x_width*i)**2)
+            area += x_width * y_width
+        
+        result =  "PI may be astimed as {0}".format(4 * area)
 
     return template.format(result=result)
 
