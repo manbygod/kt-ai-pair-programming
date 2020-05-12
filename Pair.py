@@ -232,7 +232,7 @@ def jumin_result():
         result_str = "입력하신 값은 유효하지 않습니다."
 
     html = result_str
-    html += "<br><br><input type='button' value='다시 입력' onClick='history.go(-1)'/>"
+    html += "<br><br><input type='button' value='다시 입력' onClick='location.href=\"/jumin\"'/>"
     
     return html
 
