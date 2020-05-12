@@ -1,5 +1,5 @@
 from flask import Flask, request, redirect
-import math
+import math, random
 
 app = Flask(__name__)
 app.env = 'development'
@@ -259,6 +259,31 @@ def jumin():
     
         return template
     
+@app.route('/pi', methods=['get', 'post'])
+def pi():
+    
+    with open('./pi_check.html', 'r', encoding='utf8') as f:
+        template = f.read()
+    result = ""
+    
+    if request.method == 'POST':
+        num = request.form.get("pi_iteration")
+        iter_num = check_positive_number(num)
+    
+        if iter_num <= 0:
+            return "invalid parameter"
+        
+        comp_cnt = 0
+        for i in range(iter_num):
+            x = random.random()
+            y = random.random()
+            distance = math.sqrt(x**2 + y**2)
+            if distance <= 1: comp_cnt+=1
+        
+        result =  "PI is {0}".format(4 * (comp_cnt / iter_num))
+
+    return template.format(result=result)
+
 app.run()
 
 
