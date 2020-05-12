@@ -1,7 +1,7 @@
 from flask import Flask, request, redirect
 import math, random
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.env = 'development'
 app.debug = True
 
